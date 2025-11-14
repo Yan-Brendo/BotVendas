@@ -21,9 +21,14 @@ const AdminDashboard = () => {
         whatsapp: '',
         site: '',
         descricao: '',
-        logo_url: '',
         observacoes: ''
     });
+
+    const tiposNegocio = [
+        "Loja de Roupas",
+        "Pet Shop",
+        "Perfumaria"
+    ]
 
     useEffect(() => {
         fetch('http://localhost:5000/api/empresas')
@@ -100,10 +105,12 @@ const AdminDashboard = () => {
                     <label>Proprietário *</label>
                     <input name="proprietario" onChange={handleInputChange} />
                 </div>
-                <div className="input-group">
-                    <label>Tipo de Negócio *</label>
-                    <input name="tipo_negocio" onChange={handleInputChange} />
-                </div>
+                <select name="tipo_negocio" onChange={handleInputChange} defaultValue={""}>
+                    <option value="" disabled>Selecione um tipo</option>
+                    {tiposNegocio.map(tipo => (
+                        <option key={tipo} value={tipo}>{tipo}</option>
+                    ))}
+                </select>
                 <div className="input-group">
                     <label>Localização *</label>
                     <input name="localizacao" onChange={handleInputChange} />
@@ -171,10 +178,6 @@ const AdminDashboard = () => {
                 <div className="description">
                     <label>Descrição</label>
                     <textarea name="descricao" onChange={handleInputChange}></textarea>
-                </div>
-                <div className="logo-url">
-                    <label>Logo URL</label>
-                    <input name="logo_url" onChange={handleInputChange} />
                 </div>
                 <div className="description">
                     <label>Observações</label>
